@@ -33,14 +33,11 @@ function TestDriveModal({ isModalOpen, handleOk, handleCancel, selectedTestDrive
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Text>
-            <b>Name of the client:</b>
-            <br/>
-            {testDriveClient}
+            <b>Name of the client:</b> {testDriveClient}
           </Text>
+          <br/>
           <Text>
-            <b>Test drive car:</b>
-            <br/>
-            {testDriveCar}
+            <b>Test drive car:</b> {testDriveCar}
           </Text>
         </Col>
         <Col span={24}>

@@ -2,12 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Select, Button } from 'antd';
+import { Table, Select, Button, Tag } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import { getOrdersAsync } from "../../store/features/orders.js";
 import { getClientsAsync } from "../../store/features/clients.js";
-import { getCarsAsync } from "../../store/features/cars.js";
+import { getCarsAsync, editCarAsync } from "../../store/features/cars.js";
 import { editOrderAsync } from "../../store/features/orders.js";
+import { ORDERS_STATUS } from "../../common/ordersStatus.js";
+
+import './OrdersPage.scss';
 
 function OrdersPage(props) {
   const dispatch = useDispatch();
@@ -46,22 +49,29 @@ function OrdersPage(props) {
       dataIndex: 'orderStatus',
       key: 'orderStatus',
       filters: [
-        { text: 'New', value: 'NEW' },
-        { text: 'Completed', value: 'COMPLETED' },
+        { text: 'New', value: ORDERS_STATUS.NEW },
+        { text: 'Completed', value: ORDERS_STATUS.COMPLETED },
       ],
       onFilter: (value, order) => order.orderStatus.includes(value),
       sorter: (a, b) => a.orderStatus.length - b.orderStatus.length,
       render: (text, order) => (
         <Select
+          className="order-status-select"
           defaultValue={text}
-          style={{ width: 120 }}
           options={[
-            { value: 'NEW', label: 'New' },
-            { value: 'COMPLETED', label: 'Completed'}
+            { value: ORDERS_STATUS.NEW, label: <Tag style={{ width: '90px' }} color="blue">{ORDERS_STATUS.NEW}</Tag> },
+            { value: ORDERS_STATUS.COMPLETED , label: <Tag style={{ width: '90px' }} color="green">{ORDERS_STATUS.COMPLETED}</Tag> }
           ]}
           onChange={(newStatus) => {
             const updatedOrder = {...order, orderStatus: newStatus};
             dispatch(editOrderAsync(updatedOrder));
+
+            const orderedCar = cars.find(car => car.id === order.carId);
+            if (orderedCar) {
+              const isAvailable = newStatus !== ORDERS_STATUS.COMPLETED;
+              const buyedCar = {...orderedCar, available: isAvailable};
+              dispatch(editCarAsync(buyedCar));
+            }
           }}
         />
       )

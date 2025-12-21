@@ -1,0 +1,4 @@
+export const ORDERS_STATUS = {
+  NEW: 'NEW',
+  COMPLETED: 'COMPLETED',
+};

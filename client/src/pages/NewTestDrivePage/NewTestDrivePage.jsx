@@ -6,6 +6,8 @@ import { Button, Select, Row, Col, DatePicker } from 'antd';
 import { getClientsAsync } from "../../store/features/clients.js";
 import { getCarsAsync } from '../../store/features/cars.js';
 import { addTestDriveAsync } from '../../store/features/testDrives.js';
+import { TEST_DRIVES_STATUS } from "../../common/testDrivesStatus.js";
+import dayjs from 'dayjs';
 
 function NewTestDrivePage() {
   const dispatch = useDispatch();
@@ -26,12 +28,14 @@ function NewTestDrivePage() {
       clientId: selectedClient,
       carId: selectedCar,
       testDriveDate: selectedDate,
-      testDriveStatus: 'NEW',
+      testDriveStatus: TEST_DRIVES_STATUS.NEW,
     }
 
     dispatch(addTestDriveAsync(testDrive));
     navigate('/test-drives');
   }
+
+  const availableCars = cars.filter(car => car.available);
 
   return (
     <div>
@@ -57,7 +61,7 @@ function NewTestDrivePage() {
             showSearch={{ optionFilterProp: 'label' }}
             placeholder="Select car for test drive"
             onChange={setSelectedCar}
-            options={cars.map(car => ({
+            options={availableCars.map(car => ({
               value: car.id,
               label: `${car.brand} ${car.model} (${car.price})`
             }))}
@@ -67,6 +71,9 @@ function NewTestDrivePage() {
           <DatePicker
             style={{ width: '100%' }}
             onChange={(date, dateString) => setSelectedDate(dateString)}
+            disabledDate={(current) => {
+              return current && current < dayjs().startOf('day');
+            }}
           />
         </Col>
         <Col span={24}>

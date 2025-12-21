@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { getClientsAsync } from "../../store/features/clients.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Table } from 'antd';
+import {PlusSquareOutlined} from "@ant-design/icons";
 
 function ClientsList(props) {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function ClientsList(props) {
       </h1>
       <Button type="primary" onClick={handleNavigateNewClient}>
         Add new client
+        <PlusSquareOutlined />
       </Button>
 
       <div>

@@ -22,9 +22,11 @@ function NewOrderPage() {
     dispatch(getCarsAsync());
   }, [dispatch]);
 
-  const carOptions = cars.map(car => ({
+  const availableCars = cars.filter(car => car.available);
+
+  const carOptions = availableCars.map(car => ({
     value: car.id,
-    label: `${car.brand} ${car.model} (${car.price})`
+    label: `${car.brand} ${car.model} $${car.price}`
   }));
 
   const clientOptions = clients.map(client => ({

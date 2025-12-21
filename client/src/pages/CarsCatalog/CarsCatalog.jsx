@@ -6,6 +6,7 @@ import { Result, Row, Col, Button, message } from 'antd';
 import CarCard from "../../components/CarCard/CarCard.jsx";
 import CarModal from "../../components/CarModal/CarModal.jsx";
 import CarFilters from "../../components/CarFilters/CarFilters.jsx";
+import {PlusSquareOutlined} from "@ant-design/icons";
 
 function CarsCatalog(props) {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function CarsCatalog(props) {
   const [filter, setFilter] = useState({
     brand: '',
     model: '',
-    year: '',
+    year: null,
     available: null,
   });
 
@@ -65,6 +66,7 @@ function CarsCatalog(props) {
 
       <Button type="primary" onClick={showModal}>
         Add new car
+        <PlusSquareOutlined />
       </Button>
 
       <CarFilters filter={filter} setFilter={setFilter} />

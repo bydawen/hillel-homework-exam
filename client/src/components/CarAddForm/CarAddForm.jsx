@@ -9,7 +9,10 @@ function CarAddForm(props) {
       <Form
         form={props.form}
         name="basic"
-        initialValues={{ remember: true }}
+        initialValues={{
+          remember: true,
+          available: true
+        }}
         layout="vertical"
         autoComplete="off"
       >
@@ -32,7 +35,17 @@ function CarAddForm(props) {
             <Form.Item
               label="Price"
               name="price"
-              rules={[{ required: true, message: 'Please input the price!' }]}
+              rules={[
+                {
+                required: true,
+                message: 'Please input the price!'
+                },
+                {
+                  type: 'number',
+                  min: 1,
+                  message: 'Price must be bigger than 0 !'
+                }
+              ]}
             >
               <InputNumber placeholder="Price of a car" />
             </Form.Item>
@@ -41,7 +54,17 @@ function CarAddForm(props) {
             <Form.Item
               label="Year"
               name="year"
-              rules={[{ required: true, message: 'Please input the year!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input the year!'
+                },
+                {
+                  type: 'number',
+                  min: 1900,
+                  message: 'Year must be greater than 1900 !'
+                }
+              ]}
             >
               <InputNumber placeholder="Year of a car" />
             </Form.Item>
@@ -53,7 +76,7 @@ function CarAddForm(props) {
               rules={[{ required: true, message: 'Please select availability!' }]}
               valuePropName="checked"
             >
-              <Switch checkedChildren="YES" unCheckedChildren="NO" defaultChecked />
+              <Switch checkedChildren="YES" unCheckedChildren="NO" />
             </Form.Item>
           </Col>
         </Row>
