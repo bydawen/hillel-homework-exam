@@ -5,7 +5,7 @@ export const carsData = [
     "model": "Camry",
     "year": 2020,
     "available": true,
-    "image": "https://example.com/images/toyota-camry-2020.jpg",
+    "image": "https://vidi.ua/uploads/media/dc_car_gallery/0011/92/thumb_1091508_dc_car_gallery_slider2.jpeg",
     "price": 23500
   },
   {
@@ -14,7 +14,7 @@ export const carsData = [
     "model": "Passat",
     "year": 2018,
     "available": false,
-    "image": "https://example.com/images/vw-passat-2018.jpg",
+    "image": "https://media.torque.com.sg/public/2018/09/volkswagen-passat-driving.jpg",
     "price": 17500
   },
   {
@@ -23,7 +23,7 @@ export const carsData = [
     "model": "3 Series",
     "year": 2019,
     "available": true,
-    "image": "https://example.com/images/bmw-3series-2019.jpg",
+    "image": "https://www.topgear.com/sites/default/files/2025/07/6-BMW-3-Series-Touring-review-2025-UK.jpg",
     "price": 28900
   },
   {
@@ -32,7 +32,7 @@ export const carsData = [
     "model": "A4",
     "year": 2021,
     "available": true,
-    "image": "https://example.com/images/audi-a4-2021.jpg",
+    "image": "https://audi.autoua.net/media/catalog/9/3/p1763493-1582023386.jpg",
     "price": 36500
   },
   {
@@ -41,7 +41,7 @@ export const carsData = [
     "model": "Octavia",
     "year": 2017,
     "available": false,
-    "image": "https://example.com/images/skoda-octavia-2017.jpg",
+    "image": "https://imgd.aeplcdn.com/664x374/n/cw/ec/40371/octavia-exterior-right-rear-three-quarter.jpeg?isig=0&q=80",
     "price": 13200
   },
   {
@@ -50,7 +50,7 @@ export const carsData = [
     "model": "Civic",
     "year": 2022,
     "available": true,
-    "image": "https://example.com/images/honda-civic-2022.jpg",
+    "image": "https://images.prismic.io/carwow/aOk10J5xUNkB11UP_honda-civic-2025-rhd-header.jpg",
     "price": 24900
   },
   {
@@ -59,7 +59,7 @@ export const carsData = [
     "model": "Tucson",
     "year": 2021,
     "available": true,
-    "image": "https://example.com/images/hyundai-tucson-2021.jpg",
+    "image": "https://www.topgear.com/sites/default/files/2024/12/hyundai-tucson-ultimate-20_0.jpg",
     "price": 27900
   },
   {
@@ -68,7 +68,7 @@ export const carsData = [
     "model": "Focus",
     "year": 2016,
     "available": false,
-    "image": "https://example.com/images/ford-focus-2016.jpg",
+    "image": "https://www.topgear.com/sites/default/files/2025/04/1-Ford-Focus-ST.jpg",
     "price": 9900
   },
   {
@@ -77,7 +77,7 @@ export const carsData = [
     "model": "C-Class",
     "year": 2019,
     "available": true,
-    "image": "https://example.com/images/mercedes-cclass-2019.jpg",
+    "image": "https://www.topgear.com/sites/default/files/2021/11/Mercedes_C300D_0000.jpg",
     "price": 33500
   },
   {
@@ -86,7 +86,7 @@ export const carsData = [
     "model": "Qashqai",
     "year": 2020,
     "available": true,
-    "image": "https://example.com/images/nissan-qashqai-2020.jpg",
+    "image": "https://www.topgear.com/sites/default/files/cars-car/image/2024/07/Nissan%20Qashqai%20N-Design_012-source.jpg",
     "price": 21900
   },
   {
@@ -95,7 +95,7 @@ export const carsData = [
     "model": "Sportage",
     "year": 2021,
     "available": false,
-    "image": "https://example.com/images/kia-sportage-2021.jpg",
+    "image": "https://www.topgear.com/sites/default/files/cars-car/carousel/2018/07/4790.jpg?w=1784&h=1004",
     "price": 26800
   },
   {
@@ -104,7 +104,7 @@ export const carsData = [
     "model": "CX-5",
     "year": 2019,
     "available": true,
-    "image": "https://example.com/images/mazda-cx5-2019.jpg",
+    "image": "https://www.topgear.com/sites/default/files/cars-car/image/2021/02/cx-5-skyactiv-g-awd-gt-sport-auto-action-3.jpg",
     "price": 22400
   },
   {
@@ -113,7 +113,7 @@ export const carsData = [
     "model": "Megane",
     "year": 2018,
     "available": true,
-    "image": "https://example.com/images/renault-megane-2018.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/2019_Renault_Megane_R.S._300_Trophy_1.8_Front.jpg/1200px-2019_Renault_Megane_R.S._300_Trophy_1.8_Front.jpg",
     "price": 14500
   },
   {
@@ -122,7 +122,7 @@ export const carsData = [
     "model": "3008",
     "year": 2020,
     "available": false,
-    "image": "https://example.com/images/peugeot-3008-2020.jpg",
+    "image": "https://www.topgear.com/sites/default/files/cars-car/image/2024/09/PEUGEOT_3008_EXT_13.jpg?w=1280&h=720",
     "price": 25100
   },
   {
@@ -131,7 +131,7 @@ export const carsData = [
     "model": "Astra",
     "year": 2017,
     "available": true,
-    "image": "https://example.com/images/opel-astra-2017.jpg",
+    "image": "https://www.opel.ua/content/dam/opel/ukraine/about-opel/history/4x3/opel-astra-j-hatchback-5d-2009-rear-left-34-4x3.jpg?imwidth=768",
     "price": 11900
   },
   {
@@ -140,7 +140,7 @@ export const carsData = [
     "model": "Model 3",
     "year": 2022,
     "available": true,
-    "image": "https://example.com/images/tesla-model3-2022.jpg",
+    "image": "https://media.drivingelectric.com/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1698686429/drivingelectric/2023-10/Tesla%20Model%203%20facelift%201_awovfc.jpg",
     "price": 39900
   },
   {
@@ -149,7 +149,7 @@ export const carsData = [
     "model": "XC60",
     "year": 2020,
     "available": false,
-    "image": "https://example.com/images/volvo-xc60-2020.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1a/2018_Volvo_XC60_R-Design_D5_P-Pulse_2.0_Front.jpg",
     "price": 34900
   },
   {
@@ -158,7 +158,7 @@ export const carsData = [
     "model": "Forester",
     "year": 2019,
     "available": true,
-    "image": "https://example.com/images/subaru-forester-2019.jpg",
+    "image": "https://www.topgear.com/sites/default/files/cars-car/image/2025/02/1%20Subaru%20Forester%20review%202025%20UK.jpg",
     "price": 21400
   },
   {
@@ -167,7 +167,7 @@ export const carsData = [
     "model": "Malibu",
     "year": 2018,
     "available": false,
-    "image": "https://example.com/images/chevrolet-malibu-2018.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Chevrolet_Malibu_LT_%28IX%2C_Facelift%29_%E2%80%93_f_02112024.jpg/1200px-Chevrolet_Malibu_LT_%28IX%2C_Facelift%29_%E2%80%93_f_02112024.jpg",
     "price": 15800
   },
   {
@@ -176,7 +176,7 @@ export const carsData = [
     "model": "RX",
     "year": 2021,
     "available": true,
-    "image": "https://example.com/images/lexus-rx-2021.jpg",
+    "image": "https://www.thecarexpert.co.uk/wp-content/uploads/2020/03/Lexus-RX_02.jpg",
     "price": 45900
   }
 ];

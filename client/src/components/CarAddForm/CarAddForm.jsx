@@ -30,6 +30,13 @@ function CarAddForm(props) {
         >
           <Input placeholder="Enter model of a car" />
         </Form.Item>
+        <Form.Item
+          label="Car image"
+          name="image"
+          rules={[{ message: 'Please input the model!' }]}
+        >
+          <Input placeholder="Add car image" />
+        </Form.Item>
         <Row gutter={16}>
           <Col span={8}>
             <Form.Item
