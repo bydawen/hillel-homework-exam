@@ -30,7 +30,15 @@ export const editOrderAsync = createAsyncThunk(
     const result = await axios.put(`${ORDERS_URL}/${order.id}`, order);
     return result.data;
   }
-)
+);
+
+export const deleteOrderAsync = createAsyncThunk(
+  'orders/deleteOrder',
+  async (orderId) => {
+    await axios.delete(`${ORDERS_URL}/${orderId}`);
+    return orderId;
+  }
+);
 
 const ordersSlice = createSlice({
   name: 'orders',
@@ -48,6 +56,10 @@ const ordersSlice = createSlice({
     builder.addCase(editOrderAsync.fulfilled, (state, action) => {
       const orderIndex = state.ordersItems.findIndex(order => order.id === action.payload.id);
       state.ordersItems[orderIndex] = action.payload;
+    });
+
+    builder.addCase(deleteOrderAsync.fulfilled, (state, action) => {
+      state.ordersItems = state.ordersItems.filter(order => order.id !== action.payload);
     });
   }
 });

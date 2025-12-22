@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import { deleteCarAsync } from '../../store/features/cars.js';
 import { CARS_STATUS } from "../../common/carsStatus.js";
 
-const { Meta } = Card;
+import './CarCard.scss';
 
-function CarCard({ messageApi, carId, carBrand, carModel, carYear, carPrice, carImage, available, editCar }) {
+function CarCard({ messageApi, carId, carBrand, carModel, carYear, carPrice, carImage, available, isCheckout, editCar }) {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -19,15 +19,18 @@ function CarCard({ messageApi, carId, carBrand, carModel, carYear, carPrice, car
     editCar();
   }
 
+  const { Meta } = Card;
+
   return (
     <>
       <Badge.Ribbon
-        text={available ? CARS_STATUS.AVAILABLE : CARS_STATUS.SOLD}
-        color={available ? 'green' : 'red'}
+        text={isCheckout ? CARS_STATUS.CHECKOUT : available ? CARS_STATUS.AVAILABLE : CARS_STATUS.SOLD}
+        color={isCheckout ? 'blue' : available ? 'green' : 'red'}
       >
         <Card
           hoverable
           cover={<img src={carImage} alt={carBrand + ' ' + carModel} />}
+          className="car-card"
           actions={[
             <EditOutlined style={{ color: "lightblue" }} onClick={handleEdit} key="edit" />,
             <Popconfirm

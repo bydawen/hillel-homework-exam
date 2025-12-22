@@ -24,6 +24,14 @@ export const addClientAsync = createAsyncThunk(
   }
 );
 
+export const editClientAsync = createAsyncThunk(
+  'clients/editClient',
+  async (client) => {
+    const result = await axios.put(`${CLIENTS_URL}/${client.id}`, client);
+    return result.data;
+  }
+);
+
 const clientsSlice = createSlice({
   name: 'clients',
   initialState,
@@ -36,6 +44,11 @@ const clientsSlice = createSlice({
     builder.addCase(addClientAsync.fulfilled, (state, action) => {
       state.clientsItems.push(action.payload);
     });
+
+    builder.addCase(editClientAsync.fulfilled, (state, action) => {
+      const clientIndex = state.clientsItems.findIndex(client => client.id === action.payload.id);
+      state.clientsItems[clientIndex] = action.payload;
+    })
   }
 });
 

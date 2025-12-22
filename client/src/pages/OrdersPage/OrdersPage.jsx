@@ -2,9 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Select, Button, Tag } from 'antd';
-import { PlusSquareOutlined } from '@ant-design/icons';
-import { getOrdersAsync } from "../../store/features/orders.js";
+import { Table, Select, Button, Tag, Space } from 'antd';
+import { PlusSquareOutlined, DeleteOutlined } from '@ant-design/icons';
+import { getOrdersAsync, deleteOrderAsync } from "../../store/features/orders.js";
 import { getClientsAsync } from "../../store/features/clients.js";
 import { getCarsAsync, editCarAsync } from "../../store/features/cars.js";
 import { editOrderAsync } from "../../store/features/orders.js";
@@ -12,7 +12,7 @@ import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 
 import './OrdersPage.scss';
 
-function OrdersPage(props) {
+function OrdersPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orders = useSelector(state => state.orders.ordersItems);
@@ -24,6 +24,10 @@ function OrdersPage(props) {
     dispatch(getClientsAsync());
     dispatch(getCarsAsync());
   }, [dispatch]);
+
+  const handleDeleteOrder = (orderId) => {
+    dispatch(deleteOrderAsync(orderId));
+  };
 
   const columns = [
     {
@@ -55,25 +59,36 @@ function OrdersPage(props) {
       onFilter: (value, order) => order.orderStatus.includes(value),
       sorter: (a, b) => a.orderStatus.length - b.orderStatus.length,
       render: (text, order) => (
-        <Select
-          className="order-status-select"
-          defaultValue={text}
-          options={[
-            { value: ORDERS_STATUS.NEW, label: <Tag style={{ width: '90px' }} color="blue">{ORDERS_STATUS.NEW}</Tag> },
-            { value: ORDERS_STATUS.COMPLETED , label: <Tag style={{ width: '90px' }} color="green">{ORDERS_STATUS.COMPLETED}</Tag> }
-          ]}
-          onChange={(newStatus) => {
-            const updatedOrder = {...order, orderStatus: newStatus};
-            dispatch(editOrderAsync(updatedOrder));
+        <Space size="middle">
+          <Select
+            className="order-status-select"
+            defaultValue={text}
+            options={[
+              { value: ORDERS_STATUS.NEW, label: <Tag style={{ width: '90px' }} color="blue">{ORDERS_STATUS.NEW}</Tag> },
+              { value: ORDERS_STATUS.COMPLETED , label: <Tag style={{ width: '90px' }} color="green">{ORDERS_STATUS.COMPLETED}</Tag> },
+              { value: ORDERS_STATUS.CANCELED , label: <Tag style={{ width: '90px' }} color="red">{ORDERS_STATUS.CANCELED}</Tag> }
+            ]}
+            onChange={(newStatus) => {
+              const updatedOrder = {...order, orderStatus: newStatus};
+              dispatch(editOrderAsync(updatedOrder));
 
-            const orderedCar = cars.find(car => car.id === order.carId);
-            if (orderedCar) {
-              const isAvailable = newStatus !== ORDERS_STATUS.COMPLETED;
-              const buyedCar = {...orderedCar, available: isAvailable};
-              dispatch(editCarAsync(buyedCar));
-            }
-          }}
-        />
+              const orderedCar = cars.find(car => car.id === order.carId);
+              if (orderedCar) {
+                const isAvailable = newStatus === ORDERS_STATUS.CANCELED;
+                const buyedCar = {...orderedCar, available: isAvailable};
+                dispatch(editCarAsync(buyedCar));
+              }
+            }}
+          />
+          {order.orderStatus === ORDERS_STATUS.CANCELED && (
+            <Button
+              onClick={() => handleDeleteOrder(order.id)}
+              type="primary"
+              shape="circle"
+              icon={<DeleteOutlined />}
+            />
+          )}
+        </Space>
       )
     },
   ];

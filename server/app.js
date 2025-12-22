@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express, {request, response} from 'express';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
 import { carsData } from './mockData/cars.js';
@@ -63,6 +63,19 @@ app.post('/clients', (request, response) => {
   return response.json(newClient);
 });
 
+app.put('/clients/:clientId', (request, response) => {
+  const clientId = request.params.clientId;
+  const clientIndex = clientsData.findIndex(client => client.id === clientId);
+
+  if (clientIndex !== -1) {
+    const updatedClient = { ...request.body, id: clientId };
+    clientsData[clientIndex] = updatedClient;
+    return response.json(updatedClient);
+  } else {
+    return response.status(404).json({ message: 'Client not found'});
+  }
+});
+
 app.get('/orders', (request, response) => {
   return response.json(ordersData);
 });
@@ -85,6 +98,18 @@ app.put('/orders/:orderId', (request, response) => {
     const updatedOrder = { ...request.body, id: orderId };
     ordersData[orderIndex] = updatedOrder;
     return response.json(updatedOrder);
+  } else {
+    return response.status(404).json({ message: 'Order not found'});
+  }
+});
+
+app.delete('/orders/:orderId', (request, response) => {
+  const orderId = request.params.orderId;
+  const orderIndex = ordersData.findIndex(order => order.id === orderId);
+
+  if (orderIndex !== -1) {
+    ordersData.splice(orderIndex, 1);
+    return response.json({ message: 'Order deleted'});
   } else {
     return response.status(404).json({ message: 'Order not found'});
   }

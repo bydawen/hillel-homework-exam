@@ -33,9 +33,9 @@ function CarAddForm(props) {
         <Form.Item
           label="Car image"
           name="image"
-          rules={[{ message: 'Please input the model!' }]}
+          rules={[{ message: 'Please add car image url!' }]}
         >
-          <Input placeholder="Add car image" />
+          <Input placeholder="Add car image URL" />
         </Form.Item>
         <Row gutter={16}>
           <Col span={8}>

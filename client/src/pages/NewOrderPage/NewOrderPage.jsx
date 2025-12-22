@@ -4,25 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getClientsAsync } from "../../store/features/clients.js";
 import { getCarsAsync } from '../../store/features/cars.js';
-import { addOrderAsync } from '../../store/features/orders.js';
+import { getOrdersAsync, addOrderAsync } from '../../store/features/orders.js';
 import { Button, Select, Row, Col } from 'antd';
+import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 
-import './NewOrderPage.scss'
+import './NewOrderPage.scss';
 
 function NewOrderPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients = useSelector(state => state.clients.clientsItems);
   const cars = useSelector(state => state.cars.carsItems);
+  const orders = useSelector(state => state.orders.ordersItems);
   const [selectedClient, setSelectedClient] = useState(null);
   const [selectedCar, setSelectedCar] = useState(null);
 
   useEffect(() => {
     dispatch(getClientsAsync());
     dispatch(getCarsAsync());
+    dispatch(getOrdersAsync());
   }, [dispatch]);
 
-  const availableCars = cars.filter(car => car.available);
+  const availableCars = cars.filter(car => car.available && !orders.some(order => order.carId === car.id && order.orderStatus === ORDERS_STATUS.NEW));
 
   const carOptions = availableCars.map(car => ({
     value: car.id,
@@ -38,7 +41,7 @@ function NewOrderPage() {
     const order = {
       clientId: selectedClient,
       carId: selectedCar,
-      orderStatus: 'NEW',
+      orderStatus: ORDERS_STATUS.NEW,
       date: new Date().toISOString().slice(0, 10),
     }
     dispatch(addOrderAsync(order));

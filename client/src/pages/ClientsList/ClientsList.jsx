@@ -1,15 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getClientsAsync } from "../../store/features/clients.js";
+import { getClientsAsync, editClientAsync } from "../../store/features/clients.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Table } from 'antd';
-import {PlusSquareOutlined} from "@ant-design/icons";
+import { PlusSquareOutlined, EditOutlined } from "@ant-design/icons";
+import ClientEditModal from "../../components/ClientEditModal/ClientEditModal.jsx";
 
 function ClientsList(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const clients = useSelector(state => state.clients.clientsItems);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editedClient, setEditedClient] = useState(null);
 
   const handleNavigateNewClient = () => {
     navigate(`/new-client`);
@@ -17,7 +20,24 @@ function ClientsList(props) {
 
   useEffect(() => {
     dispatch(getClientsAsync());
-  }, [dispatch])
+  }, [dispatch]);
+
+  const handleEditClient = (client) => {
+    setEditedClient(client);
+    setIsModalOpen(true);
+  };
+
+  const handleOk = (updatedClient) => {
+    if (editedClient) {
+      const editedClientData = { ...editedClient, ...updatedClient };
+      dispatch(editClientAsync(editedClientData));
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const columns = [
     {
@@ -35,7 +55,22 @@ function ClientsList(props) {
       dataIndex: 'email',
       key: 'email',
     },
-  ]
+    {
+      title: 'Edit',
+      dataIndex: 'edit',
+      key: 'edit',
+      render: (_, client) => (
+        <Button
+          shape="circle"
+          icon={<EditOutlined />}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleEditClient(client);
+          }}
+        />
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -56,6 +91,8 @@ function ClientsList(props) {
             onClick: () => navigate(`/clients/${clientItem.id}`),
           })}
         />
+
+        <ClientEditModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} currentClient={editedClient} />
       </div>
     </div>
   );
