@@ -1,5 +1,10 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { ConfigProvider, theme } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { ConfigProvider, theme, Button } from 'antd';
+import { LogoutOutlined } from "@ant-design/icons";
+import RouteProtector from './components/RouteProtector/RouteProtector.jsx';
+import EmptyPage from './pages/EmptyPage/EmptyPage.jsx';
+import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage.jsx';
 import Main from './pages/Main/Main.jsx';
 import CarsCatalog from './pages/CarsCatalog/CarsCatalog.jsx';
 import OrdersPage from './pages/OrdersPage/OrdersPage.jsx';
@@ -9,10 +14,18 @@ import NewClientPage from "./pages/NewClientPage/NewClientPage.jsx";
 import ClientInfo from "./pages/ClientInfo/ClientInfo.jsx";
 import NewOrderPage from "./pages/NewOrderPage/NewOrderPage.jsx";
 import NewTestDrivePage from "./pages/NewTestDrivePage/NewTestDrivePage.jsx";
+import { logout } from './store/features/authorization.js';
 
 import './App.scss';
 
 function App() {
+  const dispatch = useDispatch();
+  const isLogged = useSelector(state => state.authorization.token);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <ConfigProvider theme={{
@@ -27,31 +40,42 @@ function App() {
         },
       }}>
         <h1>Vite + React</h1>
-        <BrowserRouter>
-          <nav>
-            <Link to="/">Main</Link>
-            <Link to="/cars">Cars Catalog</Link>
-            <Link to="/clients">Clients List</Link>
-            <Link to="/orders">Orders</Link>
-            <Link to="/test-drives">Test Drives</Link>
-          </nav>
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/cars" element={<CarsCatalog />} />
-              <Route path="/clients" element={<ClientsList />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/test-drives" element={<TestDrives />} />
-              <Route path="/new-client" element={<NewClientPage />} />
-              <Route path="/clients/:clientId" element={<ClientInfo />} />
-              <Route path="/new-order" element={<NewOrderPage />} />
-              <Route path="/new-test-drive" element={<NewTestDrivePage />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
+        <div className="container">
+          <BrowserRouter>
+            {isLogged && (
+              <nav>
+                <Link to="/main">Main</Link>
+                <Link to="/cars">Cars Catalog</Link>
+                <Link to="/clients">Clients List</Link>
+                <Link to="/orders">Orders</Link>
+                <Link to="/test-drives">Test Drives</Link>
+                <Button type="link" onClick={handleLogout}>
+                  Logout <LogoutOutlined />
+                </Button>
+              </nav>
+            )}
+
+            <div className="main">
+              <Routes>
+                <Route path="*" element={<EmptyPage />} />
+                <Route path="/login" element={<AuthorizationPage />} />
+                <Route path="/main" element={<RouteProtector><Main /></RouteProtector>} />
+                <Route path="/cars" element={<RouteProtector><CarsCatalog /></RouteProtector>} />
+                <Route path="/clients" element={<RouteProtector><ClientsList /></RouteProtector>} />
+                <Route path="/orders" element={<RouteProtector><OrdersPage /></RouteProtector>} />
+                <Route path="/test-drives" element={<RouteProtector><TestDrives /></RouteProtector>} />
+                <Route path="/new-client" element={<RouteProtector><NewClientPage /></RouteProtector>} />
+                <Route path="/clients/:clientId" element={<RouteProtector><ClientInfo /></RouteProtector>} />
+                <Route path="/new-order" element={<RouteProtector><NewOrderPage /></RouteProtector>} />
+                <Route path="/new-test-drive" element={<RouteProtector><NewTestDrivePage /></RouteProtector>} />
+              </Routes>
+            </div>
+          </BrowserRouter>
+        </div>
+
       </ConfigProvider>
     </>
   )
 }
 
-export default App
+export default App;

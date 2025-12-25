@@ -142,6 +142,14 @@ app.put('/test-drives/:testDriveId', (request, response) => {
   }
 });
 
+app.post('/login', (request, response) => {
+  if (request.body.login !== 'admin' || request.body.password !== 'admin') {
+    return response.status(401).json({ message: 'Invalid login or password'});
+  } else {
+    return response.json({token: 'isLogged', message: 'Login successful'});
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

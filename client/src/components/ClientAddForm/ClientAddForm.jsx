@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import {PHONE_PATTERN, PHONE_PREFIX} from '../../common/patterns.js';
 
 import './ClientAddForm.scss';
 
 function ClientAddForm(props) {
-  const phonePattern = /^\+380\d{9}$/;
 
   return (
     <Form
@@ -25,14 +25,14 @@ function ClientAddForm(props) {
       <Form.Item
         label="Phone number"
         name="phone"
-        initialValue={'+380'}
+        initialValue={PHONE_PREFIX}
         rules={[
           {
             required: true,
             message: 'Please enter the phone number!',
           },
           {
-            pattern: phonePattern,
+            pattern: PHONE_PATTERN,
             message: 'Invalid phone number!',
           }
         ]}

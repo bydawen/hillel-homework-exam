@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
+import { PHONE_PATTERN, PHONE_PREFIX } from '../../common/patterns.js';
 
 function ClientEditModal({ isModalOpen, handleOk, handleCancel, currentClient }) {
   const [form] = Form.useForm();
-  const phonePattern = /^\+380\d{9}$/;
 
   useEffect(() => {
     if (currentClient) {
@@ -31,14 +31,14 @@ function ClientEditModal({ isModalOpen, handleOk, handleCancel, currentClient })
         <Form.Item
           label="Phone number"
           name="phone"
-          initialValue={'+380'}
+          initialValue={PHONE_PREFIX}
           rules={[
             {
               required: true,
               message: 'Please enter the phone number!',
             },
             {
-              pattern: phonePattern,
+              pattern: PHONE_PATTERN,
               message: 'Invalid phone number!',
             }
           ]}
