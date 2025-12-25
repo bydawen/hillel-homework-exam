@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { ConfigProvider, theme, Button } from 'antd';
-import { LogoutOutlined } from "@ant-design/icons";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { ConfigProvider, theme } from 'antd';
 import RouteProtector from './components/RouteProtector/RouteProtector.jsx';
+import Navigation from "./components/Navigation/Navigation.jsx";
 import EmptyPage from './pages/EmptyPage/EmptyPage.jsx';
 import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage.jsx';
 import Main from './pages/Main/Main.jsx';
@@ -14,17 +14,11 @@ import NewClientPage from "./pages/NewClientPage/NewClientPage.jsx";
 import ClientInfo from "./pages/ClientInfo/ClientInfo.jsx";
 import NewOrderPage from "./pages/NewOrderPage/NewOrderPage.jsx";
 import NewTestDrivePage from "./pages/NewTestDrivePage/NewTestDrivePage.jsx";
-import { logout } from './store/features/authorization.js';
 
 import './App.scss';
 
 function App() {
-  const dispatch = useDispatch();
   const isLogged = useSelector(state => state.authorization.token);
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
 
   return (
     <>
@@ -39,20 +33,10 @@ function App() {
           }
         },
       }}>
-        <h1>Vite + React</h1>
         <div className="container">
           <BrowserRouter>
             {isLogged && (
-              <nav>
-                <Link to="/main">Main</Link>
-                <Link to="/cars">Cars Catalog</Link>
-                <Link to="/clients">Clients List</Link>
-                <Link to="/orders">Orders</Link>
-                <Link to="/test-drives">Test Drives</Link>
-                <Button type="link" onClick={handleLogout}>
-                  Logout <LogoutOutlined />
-                </Button>
-              </nav>
+              <Navigation />
             )}
 
             <div className="main">

@@ -66,6 +66,10 @@ function CarsCatalog() {
 
   return (
     <div>
+      <h1>
+        Cars Catalog
+      </h1>
+
       {contextHolder}
 
       <Button type="primary" onClick={showModal}>
