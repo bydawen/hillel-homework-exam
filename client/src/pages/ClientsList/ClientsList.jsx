@@ -74,13 +74,15 @@ function ClientsList(props) {
 
   return (
     <div>
-      <h1>
-        Clients List
-      </h1>
-      <Button type="primary" onClick={handleNavigateNewClient}>
-        Add new client
-        <PlusSquareOutlined />
-      </Button>
+      <div className="header-holder">
+        <h1>
+          Clients List
+        </h1>
+        <Button type="primary" onClick={handleNavigateNewClient}>
+          Add new client
+          <PlusSquareOutlined />
+        </Button>
+      </div>
 
       <div>
         <Table

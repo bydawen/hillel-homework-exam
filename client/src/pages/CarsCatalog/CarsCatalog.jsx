@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getCarsAsync, addCarAsync, editCarAsync } from '../../store/features/cars.js';
 import { getOrdersAsync } from '../../store/features/orders.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { Result, Row, Col, Button, message } from 'antd';
+import { Result, Row, Col, Button, message, Space } from 'antd';
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 import CarCard from "../../components/CarCard/CarCard.jsx";
@@ -66,50 +66,52 @@ function CarsCatalog() {
 
   return (
     <div>
-      <h1>
-        Cars Catalog
-      </h1>
+      <div className="header-holder">
+        <h1>
+          Cars Catalog
+        </h1>
+        <Button type="primary" onClick={showModal}>
+          Add new car
+          <PlusSquareOutlined />
+        </Button>
+      </div>
 
       {contextHolder}
 
-      <Button type="primary" onClick={showModal}>
-        Add new car
-        <PlusSquareOutlined />
-      </Button>
-
-      <CarFilters filter={filter} setFilter={setFilter} />
-
-      <Row gutter={[16, 16]}>
-        {showFilteredCars.length === 0 && (
-          <Col span={24}>
-            <Result
-              status="warning"
-              title="No results found!"
-            />
-          </Col>
-        )}
-
-        {showFilteredCars.map(car => {
-          const isCheckout = orders.some(order => order.carId === car.id && order.orderStatus === ORDERS_STATUS.NEW);
-
-          return(
-            <Col span={8} key={car.id}>
-              <CarCard
-                carId={car.id}
-                carBrand={car.brand}
-                carModel={car.model}
-                carYear={car.year}
-                carPrice={car.price}
-                carImage={car.image}
-                available={car.available}
-                isCheckout={isCheckout}
-                messageApi={messageApi}
-                editCar={() => handleEditCar(car)}
+      <Space orientation="vertical" size="middle" style={{ width: '100%' }}>
+        <CarFilters filter={filter} setFilter={setFilter} />
+        <Row gutter={[16, 16]}>
+          {showFilteredCars.length === 0 && (
+            <Col span={24}>
+              <Result
+                status="warning"
+                title="No results found!"
               />
             </Col>
-          )
-        })}
-      </Row>
+          )}
+
+          {showFilteredCars.map(car => {
+            const isCheckout = orders.some(order => order.carId === car.id && order.orderStatus === ORDERS_STATUS.NEW);
+
+            return(
+              <Col span={8} key={car.id}>
+                <CarCard
+                  carId={car.id}
+                  carBrand={car.brand}
+                  carModel={car.model}
+                  carYear={car.year}
+                  carPrice={car.price}
+                  carImage={car.image}
+                  available={car.available}
+                  isCheckout={isCheckout}
+                  messageApi={messageApi}
+                  editCar={() => handleEditCar(car)}
+                />
+              </Col>
+            )
+          })}
+        </Row>
+      </Space>
 
       <CarModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} currentCar={editCar} />
 

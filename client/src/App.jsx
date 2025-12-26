@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme, Row, Col } from 'antd';
 import RouteProtector from './components/RouteProtector/RouteProtector.jsx';
-import Navigation from "./components/Navigation/Navigation.jsx";
+import ContentLayout from './components/ContentLayout/ContentLayout.jsx';
 import EmptyPage from './pages/EmptyPage/EmptyPage.jsx';
 import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage.jsx';
 import Main from './pages/Main/Main.jsx';
@@ -18,8 +17,6 @@ import NewTestDrivePage from "./pages/NewTestDrivePage/NewTestDrivePage.jsx";
 import './App.scss';
 
 function App() {
-  const isLogged = useSelector(state => state.authorization.token);
-
   return (
     <>
       <ConfigProvider theme={{
@@ -33,16 +30,12 @@ function App() {
           }
         },
       }}>
-        <div className="container">
-          <BrowserRouter>
-            {isLogged && (
-              <Navigation />
-            )}
-
-            <div className="main">
-              <Routes>
-                <Route path="*" element={<EmptyPage />} />
-                <Route path="/login" element={<AuthorizationPage />} />
+        <BrowserRouter>
+          <div className="container">
+            <Routes>
+              <Route path="/login" element={<AuthorizationPage />} />
+              <Route path="*" element={<EmptyPage />} />
+              <Route element={<ContentLayout />}>
                 <Route path="/main" element={<RouteProtector><Main /></RouteProtector>} />
                 <Route path="/cars" element={<RouteProtector><CarsCatalog /></RouteProtector>} />
                 <Route path="/clients" element={<RouteProtector><ClientsList /></RouteProtector>} />
@@ -52,11 +45,10 @@ function App() {
                 <Route path="/clients/:clientId" element={<RouteProtector><ClientInfo /></RouteProtector>} />
                 <Route path="/new-order" element={<RouteProtector><NewOrderPage /></RouteProtector>} />
                 <Route path="/new-test-drive" element={<RouteProtector><NewTestDrivePage /></RouteProtector>} />
-              </Routes>
-            </div>
-          </BrowserRouter>
-        </div>
-
+              </Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
       </ConfigProvider>
     </>
   )

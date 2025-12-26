@@ -99,11 +99,13 @@ function OrdersPage() {
 
   return (
     <div>
-      <h1>Orders Page</h1>
-      <Button onClick={handleNavigateNewOrder} type="primary">
-        Create new order
-        <PlusSquareOutlined />
-      </Button>
+      <div className="header-holder">
+        <h1>Orders Page</h1>
+        <Button onClick={handleNavigateNewOrder} type="primary">
+          Create new order
+          <PlusSquareOutlined />
+        </Button>
+      </div>
       <div>
         <Table columns={columns} dataSource={orders} rowKey="id" />
       </div>

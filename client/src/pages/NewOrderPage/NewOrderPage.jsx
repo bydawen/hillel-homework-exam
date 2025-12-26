@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { getClientsAsync } from "../../store/features/clients.js";
 import { getCarsAsync } from '../../store/features/cars.js';
 import { getOrdersAsync, addOrderAsync } from '../../store/features/orders.js';
-import { Button, Select, Row, Col } from 'antd';
+import { Button, Select, Row, Col, Card, Typography } from 'antd';
 import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 
 import './NewOrderPage.scss';
@@ -50,34 +50,44 @@ function NewOrderPage() {
 
   return (
     <div>
-      <h1>
-        Create new order
-      </h1>
-      <Row gutter={[0, 16]}>
-        <Col span={24}>
-          <Select
-            showSearch={{ optionFilterProp: 'label' }}
-            placeholder="Select client"
-            onChange={setSelectedClient}
-            options={clientOptions}
-            style={{ width: '100%' }}
-          />
-        </Col>
-        <Col span={24}>
-          <Select
-            showSearch={{ optionFilterProp: 'label' }}
-            placeholder="Select car"
-            onChange={setSelectedCar}
-            options={carOptions}
-            style={{ width: '100%' }}
-          />
-        </Col>
-        <Col span={24}>
-          <Button onClick={handleCreateOrder} type="primary" disabled={!selectedClient || !selectedCar}>
-            Create order
-          </Button>
-        </Col>
-      </Row>
+      <div className="header-holder">
+        <h1>
+          Create new order
+        </h1>
+        <Typography.Text type="secondary">
+          Here you can create an order for the specific client, and choose the car from the catalog.
+        </Typography.Text>
+      </div>
+
+      <Card
+        style={{ width: '100%', maxWidth: 800, alignSelf: 'flex-start' }}
+      >
+        <Row gutter={[0, 16]}>
+          <Col span={24}>
+            <Select
+              showSearch={{ optionFilterProp: 'label' }}
+              placeholder="Select client"
+              onChange={setSelectedClient}
+              options={clientOptions}
+              style={{ width: '100%' }}
+            />
+          </Col>
+          <Col span={24}>
+            <Select
+              showSearch={{ optionFilterProp: 'label' }}
+              placeholder="Select car"
+              onChange={setSelectedCar}
+              options={carOptions}
+              style={{ width: '100%' }}
+            />
+          </Col>
+          <Col span={24}>
+            <Button onClick={handleCreateOrder} type="primary" disabled={!selectedClient || !selectedCar}>
+              Create order
+            </Button>
+          </Col>
+        </Row>
+      </Card>
     </div>
   );
 }

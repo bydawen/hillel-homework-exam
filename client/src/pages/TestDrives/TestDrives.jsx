@@ -157,13 +157,16 @@ function TestDrives() {
 
   return (
     <div>
-      <h1>
-        Test drives page
-      </h1>
-      <Button onClick={handleNavigateNewTestDrive} type="primary">
-        Assign new test drive
-        <PlusSquareOutlined />
-      </Button>
+      <div className="header-holder">
+        <h1>
+          Test drives page
+        </h1>
+        <Button onClick={handleNavigateNewTestDrive} type="primary">
+          Assign new test drive
+          <PlusSquareOutlined />
+        </Button>
+      </div>
+
       <Table
         columns={columns}
         dataSource={testDrives}

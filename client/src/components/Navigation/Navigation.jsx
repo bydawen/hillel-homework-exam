@@ -1,12 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Menu } from 'antd';
 import { LogoutOutlined } from "@ant-design/icons";
 import { logout } from '../../store/features/authorization.js';
 
+import './Navigation.scss';
+
 function Navigation() {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -43,9 +46,10 @@ function Navigation() {
 
   return (
     <Menu
+      className="navigation-menu"
       items={menuItems}
+      selectedKeys={[location.pathname]}
       mode="vertical"
-      style={{ width: 256 }}
     />
   );
 }
