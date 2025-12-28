@@ -24,7 +24,7 @@ function NewClientPage(props) {
         </Typography.Text>
       </div>
       <Card
-        style={{ width: '100%', maxWidth: 800, alignSelf: 'flex-start' }}
+        style={{ width: '100%', alignSelf: 'flex-start' }}
       >
         <ClientAddForm onFinish={handleAddClient} />
       </Card>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ConfigProvider, theme, Row, Col } from 'antd';
+import { ConfigProvider, theme } from 'antd';
 import RouteProtector from './components/RouteProtector/RouteProtector.jsx';
 import ContentLayout from './components/ContentLayout/ContentLayout.jsx';
 import EmptyPage from './pages/EmptyPage/EmptyPage.jsx';
@@ -22,7 +22,10 @@ function App() {
       <ConfigProvider theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: 'tomato',
+          colorPrimary: '#ffbf00',
+          colorLink: '#ffbf00',
+          colorLinkHover: '#ffd666',
+          colorLinkActive: '#d9a300',
         },
         components: {
           Button: {

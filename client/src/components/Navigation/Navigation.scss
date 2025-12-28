@@ -1,8 +1,7 @@
 .navigation-menu {
     border-radius: 8px;
-    border: none !important;
+    border: var(--ant-line-width) var(--ant-line-type) var(--ant-color-border-secondary) !important;
     width: 100%;
-    top: 112px;
+    top: 20px;
     position: sticky;
 }
-

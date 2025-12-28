@@ -49,7 +49,7 @@ function NewTestDrivePage() {
       </div>
 
       <Card
-        style={{ width: '100%', maxWidth: 800, alignSelf: 'flex-start' }}
+        style={{ width: '100%', alignSelf: 'flex-start' }}
       >
         <Row gutter={[0, 16]}>
           <Col span={24}>

@@ -2,8 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginAsync } from '../../store/features/authorization.js';
-
-import { Form, Input, Button, Alert } from 'antd';
+import { Form, Input, Button, Alert, Card } from 'antd';
 
 function AuthorizationPage(props) {
   const dispatch = useDispatch();
@@ -22,28 +21,33 @@ function AuthorizationPage(props) {
   };
 
   return (
-    <Form
-      onFinish={handleLogin}
+    <Card
+      style={{ width: '100%', maxWidth: '400px', margin: '0 auto', alignSelf: 'flex-start' }}
     >
-      <Form.Item
-        name="login"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+      <h2>Authorization page</h2>
+      <Form
+        onFinish={handleLogin}
       >
-        <Input placeholder="Username" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password placeholder="Password" />
-      </Form.Item>
-      {loginError &&
-        <Alert title="Wrong login or password" type="error" />
-      }
-      <Button type="primary" htmlType="submit">
-        Login
-      </Button>
-    </Form>
+        <Form.Item
+          name="login"
+          rules={[{ required: true, message: 'Please input your username!' }]}
+        >
+          <Input placeholder="Username" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password placeholder="Password" />
+        </Form.Item>
+        {loginError &&
+          <Alert title="Wrong login or password" type="error" />
+        }
+        <Button type="primary" htmlType="submit">
+          Login
+        </Button>
+      </Form>
+    </Card>
   );
 }
 

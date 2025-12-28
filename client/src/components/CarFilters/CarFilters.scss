@@ -1,0 +1,9 @@
+$base-color: var(--primary-color);
+
+.clear-filters-btn {
+    color: $base-color;
+
+    &[disabled] {
+        border-color: transparent;
+    }
+}

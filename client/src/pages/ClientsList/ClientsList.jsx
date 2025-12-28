@@ -61,6 +61,7 @@ function ClientsList(props) {
       key: 'edit',
       render: (_, client) => (
         <Button
+          type="primary"
           shape="circle"
           icon={<EditOutlined />}
           onClick={(e) => {

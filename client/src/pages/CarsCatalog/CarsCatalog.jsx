@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getCarsAsync, addCarAsync, editCarAsync } from '../../store/features/cars.js';
 import { getOrdersAsync } from '../../store/features/orders.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { Result, Row, Col, Button, message, Space } from 'antd';
+import { Result, Row, Col, Button, message, Space, Card } from 'antd';
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 import CarCard from "../../components/CarCard/CarCard.jsx";
@@ -83,10 +83,14 @@ function CarsCatalog() {
         <Row gutter={[16, 16]}>
           {showFilteredCars.length === 0 && (
             <Col span={24}>
-              <Result
-                status="warning"
-                title="No results found!"
-              />
+              <Card
+                style={{ width: '100%', alignSelf: 'flex-start' }}
+              >
+                <Result
+                  status="warning"
+                  title="No results found!"
+                />
+              </Card>
             </Col>
           )}
 

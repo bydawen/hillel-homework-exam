@@ -40,7 +40,7 @@ function CarAddForm(props) {
         <Row gutter={16}>
           <Col span={8}>
             <Form.Item
-              label="Price"
+              label="Price $"
               name="price"
               rules={[
                 {

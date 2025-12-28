@@ -2,6 +2,8 @@ import React from 'react';
 import { Input, InputNumber, Select, Col, Row, Button } from "antd";
 import {ClearOutlined} from "@ant-design/icons";
 
+import './CarFilters.scss';
+
 function CarFilters({ filter, setFilter }) {
   const clearFilters = () => setFilter({
     brand: '',
@@ -36,7 +38,9 @@ function CarFilters({ filter, setFilter }) {
       </Col>
       <Col span={1}>
         <Button
+          className="clear-filters-btn"
           onClick={clearFilters}
+          type="default"
           shape="circle"
           icon={<ClearOutlined />}
           disabled={!filter.brand && !filter.model && !filter.year && filter.available === null}

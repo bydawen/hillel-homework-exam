@@ -55,6 +55,7 @@ function OrdersPage() {
       filters: [
         { text: 'New', value: ORDERS_STATUS.NEW },
         { text: 'Completed', value: ORDERS_STATUS.COMPLETED },
+        { text: 'Canceled', value: ORDERS_STATUS.CANCELED },
       ],
       onFilter: (value, order) => order.orderStatus.includes(value),
       sorter: (a, b) => a.orderStatus.length - b.orderStatus.length,
