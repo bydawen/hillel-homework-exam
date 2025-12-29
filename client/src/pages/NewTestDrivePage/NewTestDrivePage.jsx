@@ -72,7 +72,7 @@ function NewTestDrivePage() {
               onChange={setSelectedCar}
               options={availableCars.map(car => ({
                 value: car.id,
-                label: `${car.brand} ${car.model} (${car.price})`
+                label: `${car.brand} ${car.model} ($${car.price})`
               }))}
             />
           </Col>

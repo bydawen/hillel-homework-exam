@@ -1,13 +1,14 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {Result} from "antd";
+import { Result, Card, Tabs, Tag } from "antd";
 import { getClientsAsync } from "../../store/features/clients.js";
 import { getOrdersAsync } from "../../store/features/orders.js";
 import { getCarsAsync } from "../../store/features/cars.js";
 import { getTestDrivesAsync } from "../../store/features/testDrives.js";
-import { Tabs } from 'antd';
+import { TEST_DRIVES_STATUS } from "../../common/testDrivesStatus.js";
+import { ORDERS_STATUS } from "../../common/ordersStatus.js";
 
 import './ClientInfo.scss';
 
@@ -20,6 +21,7 @@ function ClientInfo(props) {
   const testDrives = useSelector(state => state.testDrives.testDrivesItems.filter(testDrive => testDrive.clientId === clientId));
   const isLoading = useSelector(state => state.clients.loading);
   console.log(clientId);
+  console.log(clientOrders);
 
   useEffect(() => {
     dispatch(getClientsAsync(clientId));
@@ -28,28 +30,70 @@ function ClientInfo(props) {
     dispatch(getTestDrivesAsync());
   }, [dispatch, clientId]);
 
+  const statusColor = (status) => {
+    switch (status) {
+      case ORDERS_STATUS.COMPLETED:
+      case TEST_DRIVES_STATUS.DONE:
+      case TEST_DRIVES_STATUS.PASS:
+        return 'success';
+
+      case ORDERS_STATUS.CANCELED:
+      case TEST_DRIVES_STATUS.CANCELED:
+        return 'error';
+
+      case ORDERS_STATUS.NEW:
+      case TEST_DRIVES_STATUS.NEW:
+        return 'blue';
+
+      default:
+        return 'default';
+    }
+  };
+
   const items = [
     {
       key: '1',
       label: 'Orders',
-      children: (
-        <ul>
+      children: clientOrders.length === 0 ? (
+        <Result
+          status="warning"
+          title="This client has no orders yet!"
+        />
+      ) : (
+        <ul className="client-info-list">
           {clientOrders.map(order => {
             const orderCar = cars.find(car => car.id === order.carId);
+
+            if (!order) {
+              return (
+                <li key={order.id}>
+                  <Result
+                    status="error"
+                    title="No client found!"
+                  />
+                </li>
+              )
+            }
 
             return (
               <li key={order.id}>
                 <p>
+                  <b>Order ID: </b>
                   {order.id}
                 </p>
                 <p>
                   {orderCar?.brand} {orderCar?.model}
                 </p>
                 <p>
-                  {order.price}
+                  <b>Price: </b>
+                  {orderCar?.price}$
                 </p>
                 <p>
-                  {order.orderStatus}
+                  <b>STATUS: </b>
+                  <br/>
+                  <Tag color={statusColor(order.orderStatus)} key={order.orderStatus}>
+                    {order.orderStatus}
+                  </Tag>
                 </p>
               </li>
             )
@@ -60,21 +104,34 @@ function ClientInfo(props) {
     {
       key: '2',
       label: 'Test Drives',
-      children: (
-        <ul>
+      children: testDrives.length === 0 ? (
+        <Result
+          status="warning"
+          title="There is no test drives for this client yet!"
+        />
+      ) : (
+        <ul className="client-info-list">
           {testDrives.map(testDrive => {
             const testDriveCar = cars.find(car => car.id === testDrive.carId);
 
             return (
               <li key={testDrive.id}>
                 <p>
+                  <b>STATUS:</b>
+                  <br/>
+                  <Tag color={statusColor(testDrive.testDriveStatus)} key={testDrive.testDriveStatus}>
+                    {testDrive.testDriveStatus}
+                  </Tag>
+                </p>
+                <p>
+                  <b>Date of test drive: </b>
+                  <br/>
                   {testDrive.testDriveDate}
                 </p>
                 <p>
+                  <b>Test drive car:</b>
+                  <br/>
                   {testDriveCar?.brand} {testDriveCar?.model}
-                </p>
-                <p>
-                  {testDrive.testDriveStatus}
                 </p>
               </li>
             )
@@ -97,19 +154,24 @@ function ClientInfo(props) {
     )
   } else if (!isLoading) {
     return (
-      <div>
+      <Card className="client-info-card">
         <h1>
           Details about
           <br/>
-          {client.name}
+          <b>{client.name}</b>
         </h1>
         <div>
-          <p>Name: {client.name}</p>
-          <p>Phone: {client.phone}</p>
-          <p>Email: {client.email}</p>
+          <p>
+            <b>Name:</b> {client.name}
+          </p>
+          <p>
+            <b>Phone:</b> {client.phone}
+          </p>
+          <p>
+            <b>Email:</b> {client.email}</p>
         </div>
         <Tabs defaultActiveKey="1" items={items} />
-      </div>
+      </Card>
     );
   }
 }
